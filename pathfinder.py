@@ -8,6 +8,7 @@ class pathfinder:
         self.S = S  ## S is the starting point - a tuple (x,y)
         self.F = F  ## F is the goal
         self.grid = grid ## A grid object (from part A)
+        ### Optional
         self.vis = visualization(S, F)
         self.path = []
         self.cost = c
