@@ -43,18 +43,18 @@ fig.suptitle('Σταθερη Πιθανοτητα p = 0.5', fontsize = 20)
 ax1 = fig.add_subplot(121)
 ax1.set_xlabel('Grid Size')
 ax1.set_ylabel('Path Length')
-ax1.title.set_text('Μήκος του ελάχιστου μονοπατιού συναρτήσει του μεγέθους του χάρτη')
+ax1.title.set_text('Path length over grid size')
 for idx,l in enumerate(zip(*path1)):
   plt.plot(y, l, colors[idx])
-ax1.legend(['A*-Manhattan', 'A*-Euclidean', 'UCS', 'BFS-Manhattan', 'BFS-Euclidean'], fontsize = 16, shadow = True)
+ax1.legend(['A*-Manhattan', 'A*-Euclidean', 'UCS/Dijkstra', 'BFS-Manhattan', 'BFS-Euclidean'], fontsize = 16, shadow = True)
 
 ax2 = fig.add_subplot(122)
 ax2.set_xlabel('Grid Size')
 ax2.set_ylabel('Log(Expanded Nodes)')
-ax2.title.set_text('Πλήθος των expanded nodes συναρτήσει του μεγέθους του χάρτη')
+ax2.title.set_text('Number of expanded nodes over grid size')
 for idx,l in enumerate(zip(*expanded1)):
   plt.plot(y, list(map(math.log10,l)), colors[idx])
-ax2.legend(['A*-Manhattan', 'A*-Euclidean', 'UCS', 'BFS-Manhattan', 'BFS-Euclidean'], fontsize = 16, shadow = True)
+ax2.legend(['A*-Manhattan', 'A*-Euclidean', 'UCS/Dijkstra', 'BFS-Manhattan', 'BFS-Euclidean'], fontsize = 16, shadow = True)
 
 plt.show()
 
@@ -87,17 +87,17 @@ fig2.suptitle('Σταθερο Grid Size N = 50', fontsize = 20)
 ax3 = fig2.add_subplot(121)
 ax3.set_xlabel('Propability')
 ax3.set_ylabel('Path Length')
-ax3.title.set_text('Μήκος του ελάχιστου μονοπατιού συναρτήσει της πιθανοτητας')
+ax3.title.set_text('Path length over grid density (propability)')
 for idx,l in enumerate(zip(*path2)):
   plt.plot(y, l, colors[idx])
-ax3.legend(['A*-Manhattan', 'A*-Euclidean', 'UCS', 'BFS-Manhattan', 'BFS-Euclidean'], fontsize = 16, shadow = True)
+ax3.legend(['A*-Manhattan', 'A*-Euclidean', 'UCS/Dijkstra', 'BFS-Manhattan', 'BFS-Euclidean'], fontsize = 16, shadow = True)
 
 ax4 = fig2.add_subplot(122)
 ax4.set_xlabel('Propability')
 ax4.set_ylabel('Log(Expanded Nodes)')
-ax4.title.set_text('Πλήθος των expanded nodes συναρτήσει της πιθανοτητας')
+ax4.title.set_text('Number of expanded nodes over grid density (propability)')
 for idx,l in enumerate(zip(*expanded2)):
   plt.plot(y, list(map(math.log10,l)), colors[idx])
-ax4.legend(['A*-Manhattan', 'A*-Euclidean', 'UCS', 'BFS-Manhattan', 'BFS-Euclidean'], fontsize = 16, shadow = True)
+ax4.legend(['A*-Manhattan', 'A*-Euclidean', 'UCS/Dijkstra', 'BFS-Manhattan', 'BFS-Euclidean'], fontsize = 16, shadow = True)
 
 plt.show()
