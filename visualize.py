@@ -7,10 +7,10 @@ from IPython.display import HTML
 class visualization:
     def __init__(self, S, F):
         '''
-          Η μέθοδος αυτή αρχικοποιεί ένα αντικείμενο τύπου visualization.
-          Είσοδος: 
-          -> S: το σημείο εκκίνησης της αναζήτησης
-          -> F: το σημείο τερματισμού
+          This method initializes an a visualization type object.
+          Input: 
+          -> S: start point of the search
+          -> F: end point
         '''
         self.S = S
         self.F = F
@@ -18,13 +18,13 @@ class visualization:
     
     def draw_step(self, grid, frontier, expanded_nodes):
         '''
-          Η συνάρτηση αυτή καλείται για να σχεδιαστεί ένα frame στο animation (πρακτικά έπειτα από την επέκταση κάθε κόμβου)
-          Είσοδος: 
-          -> grid: Ένα χάρτης τύπου grid
-          -> frontier: Μια λίστα με τους κόμβους που ανήκουν στο μέτωπο της αναζήτησης
-          -> expanded_nodes: Μια λίστα με τους κόμβους που έχουν ήδη επεκταθεί
-          Επιστρέφει: None
-          Η συνάρτηση αυτή πρέπει να καλεστεί τουλάχιστον μια φορά για να μπορέσει να σχεδιαστεί ένα animation (πρεπεί το animation να έχει τουλάχιστον ένα frame).
+          This function is called for designing a frame on the animation (every node expansion)
+          Input: 
+          -> grid: A map of grid type
+          -> frontier: A list of nodes that belong in the same search frotier
+          -> expanded_nodes: A list of nodes that have been already expanded
+          Returns: None
+          This function must be called at least once, because the animation must have at least one frame.
         '''
         image = np.zeros((grid.N, grid.N, 3), dtype=int)
         image[grid.grid == 0] = [255, 255, 255]
@@ -42,10 +42,10 @@ class visualization:
     
     def add_path(self, path):
         '''
-          Η συνάρτηση αυτή προσθέτει στο τελευταίο frame το βέλτιστο μονοπάτι.
-          Είσοδος:
-          -> path: Μια λίστα η όποια περιέχει το βέλτιστο μονοπάτι (η οποία πρέπει να περιέχει και τον κόμβο αρχή και τον κόμβο στόχο)
-          Έξοδος: None
+          This path adds the optimal path to the last frame of the animation.
+          Input:
+          -> path: A list which contains the optimal path (must contain the start and the end node)
+          Returns: None
         '''
         for n in path[1:-1]:
             image = np.copy(self.images[-1])
@@ -67,10 +67,10 @@ class visualization:
         
     def save_gif(self, filename, fps = 30):
         '''
-            Η συνάρτηση αυτή ξαναδημιουργεί και αποθηκεύει το animation σε ένα αρχείο.
-            Είσοδος:
-            -> Το όνομα του αρχείου με κατάληξη .gif
-            Έξοδος: (None)
+            This function recreates and saves the animation to a file.
+            Input:
+            -> The name of the file followed by the suffix .gif
+            Returns: (None)
         '''
         ani = self.create_gif(fps)
         writer = PillowWriter(fps= fps)
@@ -78,11 +78,11 @@ class visualization:
 
     def show_gif(self, fps= 30, repeat_delay = 2000):
         '''
-            Η συνάρτηση αυτή εμφανίζει inline το animation.
-            Είσοδος:
-            -> fps: τα frames per second
-            Έξοδος: Το αντικείμενο που παίζει το animation
-            Exceptions: EmptyStackOfImages αν το animation δεν έχει ούτε ένα frame, δηλαδή αν η draw_step δεν έχει καλεστεί ποτέ.
+            This function shows, inline, the animation.
+            Input:
+            -> fps: frames per second
+            Returns: The animation object
+            Exceptions: EmptyStackOfImages if the animation does not have a single frame, meaning that draw_step has never been called.
         '''
         ani = self.create_gif(fps, repeat_delay)
         # return HTML(ani.to_html5_video())
@@ -90,10 +90,10 @@ class visualization:
 
     def show_last_frame(self):
         '''
-            Η μέθοδος αυτή εμφανίζει inline το τελευταίο frame που έχει δημιουργηθεί.
-            Είσοδος:
-            Έξοδος: Το αντικείμενο που εμφανίζει την εικόνα.
-            Exceptions: EmptyStackOfImages αν το animation δεν έχει ούτε ένα frame, δηλαδή αν η draw_step δεν έχει καλεστεί ποτέ.
+            This function shows, inline, the last frame.
+            Input: None
+            Returns: The object that show the image.
+            Exceptions: EmptyStackOfImages if the animation does not have a single frame, meaning that draw_step has never been called.
         '''
         if len(self.images) == 0:
             raise EmptyStackOfImages("Error! You have to call 'draw_step' at  first.")
