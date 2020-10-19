@@ -72,7 +72,15 @@ class grid:
             path.append(current)
             current = neighbours[np.random.choice(len(neighbours))] #min(neighbours,key=lambda x: distance.euclidean(x,self.F))  #neighbours[np.random.choice(len(neighbours))]
         return path
-            
+    
+    def adjacent(self, node):
+        adjacent_nodes = []
+        for n in (node[0] - 1, node[1]), (node[0] + 1, node[1]), (node[0], node[1] - 1), (node[0], node[1] + 1):
+            if self.grid[n] == 0 and not (n==self.S) :
+                adjacent_nodes.append(n)
+
+        return adjacent_nodes
+    
     def adjacent_near(self, node, visited, dist):
         adjacent_nodes = []
         flag = np.random.choice([0,1],1,p=[.15,.85])
